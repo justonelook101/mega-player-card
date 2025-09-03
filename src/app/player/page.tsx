@@ -19,6 +19,7 @@ export async function generateMetadata({
   // Create the player URL for the Twitter Card
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://mega-player-card.vercel.app'
   const playerUrl = `${baseUrl}/player/embed?video=${encodeURIComponent(vimeoId)}`
+  const imageUrl = `${baseUrl}/api/og?title=${encodeURIComponent(title)}`
   
   return {
     title,
@@ -28,19 +29,28 @@ export async function generateMetadata({
       description,
       type: 'video.other',
       images: [{
-        url: `${baseUrl}/api/og?title=${encodeURIComponent(title)}`,
+        url: imageUrl,
         width: 1200,
         height: 630,
+      }],
+      videos: [{
+        url: `https://player.vimeo.com/video/${vimeoId}`,
+        width: 1280,
+        height: 720,
+        type: 'text/html',
       }],
     },
     twitter: {
       card: 'player',
-      site: '@yourusername', // You can change this to your Twitter handle
-      creator: '@yourusername', // You can change this to your Twitter handle
       title,
       description,
+      images: [imageUrl],
     },
     other: {
+      'twitter:card': 'player',
+      'twitter:title': title,
+      'twitter:description': description,
+      'twitter:image': imageUrl,
       'twitter:player': playerUrl,
       'twitter:player:width': '1280',
       'twitter:player:height': '720',

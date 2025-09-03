@@ -16,7 +16,7 @@ export default function VideoPlayer({ videoId, embedded = false }: VideoPlayerPr
     )
   }
 
-  const vimeoEmbedUrl = `https://player.vimeo.com/video/${videoId}?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=0&muted=0&title=1&portrait=1&byline=1`
+  const vimeoEmbedUrl = `https://player.vimeo.com/video/${videoId}?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=${embedded ? '1' : '0'}&loop=0&muted=${embedded ? '1' : '0'}&title=1&portrait=1&byline=1&responsive=1`
 
   return (
     <div className={`relative bg-black ${embedded ? 'w-full h-full' : 'aspect-video'}`}>
@@ -25,10 +25,12 @@ export default function VideoPlayer({ videoId, embedded = false }: VideoPlayerPr
         width="100%"
         height="100%"
         frameBorder="0"
-        allow="autoplay; fullscreen; picture-in-picture"
+        allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
         allowFullScreen
         title={`Vimeo video ${videoId}`}
         className="w-full h-full"
+        loading="lazy"
+        sandbox="allow-scripts allow-same-origin allow-presentation"
       />
     </div>
   )

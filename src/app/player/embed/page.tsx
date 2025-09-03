@@ -1,8 +1,18 @@
 import VideoPlayer from '@/components/VideoPlayer'
+import { Metadata } from 'next'
 
 interface EmbedPageProps {
   searchParams: {
     video?: string
+  }
+}
+
+export async function generateMetadata({ searchParams }: EmbedPageProps): Promise<Metadata> {
+  const vimeoId = searchParams.video || ''
+  
+  return {
+    title: `Vimeo Video ${vimeoId}`,
+    robots: 'noindex, nofollow', // Prevent indexing of embed pages
   }
 }
 
