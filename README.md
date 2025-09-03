@@ -1,20 +1,20 @@
-# MEGA Player Card
+# Vimeo Player Card
 
-A simple, single-purpose web application that creates Twitter Player Cards for MEGA video links. This app allows content creators to easily generate shareable URLs that display their MEGA-hosted videos as native-looking video players in Twitter feeds.
+A simple, single-purpose web application that creates Twitter Player Cards for Vimeo video links. This app allows content creators to easily generate shareable URLs that display their Vimeo-hosted videos as native-looking video players in Twitter feeds.
 
 ## Features
 
-- 🎥 **Custom Video Player**: HTML5-based player with full controls
+- 🎥 **Vimeo Player Integration**: Uses Vimeo's robust embed player
 - 🐦 **Twitter Card Integration**: Generates proper Twitter Player Card metadata
-- 🔗 **Simple Link Generation**: Just paste your MEGA URL and get a shareable link
+- 🔗 **Simple Link Generation**: Just paste your Vimeo URL and get a shareable link
 - 📱 **Responsive Design**: Works on desktop and mobile devices
-- 🆓 **Completely Free**: Uses Vercel's free tier and MEGA's free storage
+- 🆓 **Completely Free**: Uses Vercel's free tier and Vimeo's free hosting
 - 🔄 **Stateless**: No database required, everything works via URL parameters
 
 ## How It Works
 
 1. **Visit the Generator**: Go to `/generator` page
-2. **Enter Details**: Paste your MEGA video URL and optionally add title/description
+2. **Enter Details**: Paste your Vimeo video URL and optionally add title/description
 3. **Generate Link**: Click "Generate Player Link" to get your shareable URL
 4. **Share on Twitter**: Use the generated URL in your tweets for Player Card functionality
 
@@ -39,7 +39,7 @@ src/
 - **Styling**: Tailwind CSS
 - **TypeScript**: Full type safety
 - **Deployment**: Vercel
-- **Storage**: MEGA (free tier)
+- **Video Platform**: Vimeo
 
 ## Deployment Instructions
 
@@ -85,9 +85,9 @@ src/
 
 ## Usage Example
 
-1. Get a MEGA video link (e.g., `https://mega.nz/file/abc123/def456`)
+1. Get a Vimeo video link (e.g., `https://vimeo.com/123456789`)
 2. Visit your deployed app at `/generator`
-3. Paste the MEGA URL
+3. Paste the Vimeo URL
 4. Add optional title and description
 5. Click "Generate Player Link"
 6. Copy the generated URL

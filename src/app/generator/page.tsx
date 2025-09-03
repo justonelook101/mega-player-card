@@ -3,25 +3,37 @@
 import { useState } from 'react'
 
 export default function GeneratorPage() {
-  const [megaUrl, setMegaUrl] = useState('')
+  const [vimeoUrl, setVimeoUrl] = useState('')
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [generatedUrl, setGeneratedUrl] = useState('')
 
+  const extractVimeoId = (url: string) => {
+    const regex = /(?:vimeo\.com\/(?:.*#|.*\/videos\/|.*\/|groups\/.*\/videos\/|album\/.*\/video\/|channels\/.*\/|.*\/))([0-9]+)/
+    const match = url.match(regex)
+    return match ? match[1] : null
+  }
+
   const generatePlayerUrl = () => {
-    if (!megaUrl.trim()) {
-      alert('Please enter a MEGA URL')
+    if (!vimeoUrl.trim()) {
+      alert('Please enter a Vimeo URL')
       return
     }
 
-    // Encode the MEGA URL and other parameters
-    const encodedMegaUrl = encodeURIComponent(megaUrl)
-    const encodedTitle = encodeURIComponent(title || 'MEGA Video Player')
+    const vimeoId = extractVimeoId(vimeoUrl)
+    if (!vimeoId) {
+      alert('Please enter a valid Vimeo URL')
+      return
+    }
+
+    // Encode the Vimeo ID and other parameters
+    const encodedVimeoId = encodeURIComponent(vimeoId)
+    const encodedTitle = encodeURIComponent(title || 'Vimeo Video Player')
     const encodedDescription = encodeURIComponent(description || 'Watch this video')
 
     // Generate the player URL with encoded parameters
     const baseUrl = window.location.origin
-    const playerUrl = `${baseUrl}/player?video=${encodedMegaUrl}&title=${encodedTitle}&description=${encodedDescription}`
+    const playerUrl = `${baseUrl}/player?video=${encodedVimeoId}&title=${encodedTitle}&description=${encodedDescription}`
     
     setGeneratedUrl(playerUrl)
   }
@@ -40,24 +52,24 @@ export default function GeneratorPage() {
       <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-6">
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold text-gray-900">
-            MEGA Player Card Generator
+            Vimeo Player Card Generator
           </h1>
           <p className="mt-2 text-sm text-gray-600">
-            Generate Twitter Player Cards for your MEGA video links
+            Generate Twitter Player Cards for your Vimeo video links
           </p>
         </div>
 
         <div className="space-y-4">
           <div>
-            <label htmlFor="megaUrl" className="block text-sm font-medium text-gray-700">
-              MEGA Video URL *
+            <label htmlFor="vimeoUrl" className="block text-sm font-medium text-gray-700">
+              Vimeo Video URL *
             </label>
             <input
               type="url"
-              id="megaUrl"
-              value={megaUrl}
-              onChange={(e) => setMegaUrl(e.target.value)}
-              placeholder="https://mega.nz/file/..."
+              id="vimeoUrl"
+              value={vimeoUrl}
+              onChange={(e) => setVimeoUrl(e.target.value)}
+              placeholder="https://vimeo.com/123456789"
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               required
             />
