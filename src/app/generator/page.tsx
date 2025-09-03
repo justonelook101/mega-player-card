@@ -9,9 +9,25 @@ export default function GeneratorPage() {
   const [generatedUrl, setGeneratedUrl] = useState('')
 
   const extractVimeoId = (url: string) => {
-    const regex = /(?:vimeo\.com\/(?:.*#|.*\/videos\/|.*\/|groups\/.*\/videos\/|album\/.*\/video\/|channels\/.*\/|.*\/))([0-9]+)/
-    const match = url.match(regex)
-    return match ? match[1] : null
+    // Remove any trailing slash and whitespace
+    const cleanUrl = url.trim().replace(/\/$/, '')
+    
+    // Multiple regex patterns to catch different Vimeo URL formats
+    const patterns = [
+      /(?:https?:\/\/)?(?:www\.)?vimeo\.com\/([0-9]+)/,
+      /(?:https?:\/\/)?(?:www\.)?vimeo\.com\/.*\/([0-9]+)/,
+      /vimeo\.com\/([0-9]+)/,
+      /([0-9]{8,})/  // fallback for just numbers
+    ]
+    
+    for (const pattern of patterns) {
+      const match = cleanUrl.match(pattern)
+      if (match && match[1]) {
+        return match[1]
+      }
+    }
+    
+    return null
   }
 
   const generatePlayerUrl = () => {
@@ -21,8 +37,11 @@ export default function GeneratorPage() {
     }
 
     const vimeoId = extractVimeoId(vimeoUrl)
+    console.log('Vimeo URL:', vimeoUrl)
+    console.log('Extracted Vimeo ID:', vimeoId)
+    
     if (!vimeoId) {
-      alert('Please enter a valid Vimeo URL')
+      alert(`Please enter a valid Vimeo URL. Examples:\n- https://vimeo.com/123456789\n- vimeo.com/123456789\n\nYour URL: ${vimeoUrl}`)
       return
     }
 
@@ -69,7 +88,7 @@ export default function GeneratorPage() {
               id="vimeoUrl"
               value={vimeoUrl}
               onChange={(e) => setVimeoUrl(e.target.value)}
-              placeholder="https://vimeo.com/123456789"
+              placeholder="https://vimeo.com/123456789 or vimeo.com/123456789"
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               required
             />
