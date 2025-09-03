@@ -17,7 +17,7 @@ export async function generateMetadata({
   const description = searchParams.description || 'Watch this video'
   
   // Create the player URL for the Twitter Card
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://mega-player-card.vercel.app'
   const playerUrl = `${baseUrl}/player/embed?video=${encodeURIComponent(video)}`
   
   return {
@@ -27,23 +27,25 @@ export async function generateMetadata({
       title,
       description,
       type: 'video.other',
+      images: [{
+        url: `${baseUrl}/api/og?title=${encodeURIComponent(title)}`,
+        width: 1200,
+        height: 630,
+      }],
     },
     twitter: {
       card: 'player',
+      site: '@yourusername', // You can change this to your Twitter handle
+      creator: '@yourusername', // You can change this to your Twitter handle
       title,
       description,
-      players: {
-        playerUrl,
-        streamUrl: video,
-        width: 1280,
-        height: 720,
-      },
     },
     other: {
       'twitter:player': playerUrl,
       'twitter:player:width': '1280',
       'twitter:player:height': '720',
       'twitter:player:stream': video,
+      'twitter:player:stream:content_type': 'video/mp4',
     },
   }
 }
