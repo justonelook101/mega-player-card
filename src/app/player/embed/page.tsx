@@ -11,14 +11,14 @@ export default function EmbedPage({ searchParams }: EmbedPageProps) {
 
   if (!vimeoId) {
     return (
-      <div className="w-full h-screen flex items-center justify-center bg-black text-white">
+      <div className="w-full h-full flex items-center justify-center bg-black text-white">
         <p>No Vimeo video ID provided</p>
       </div>
     )
   }
 
   return (
-    <div className="w-full h-screen bg-black flex items-center justify-center">
+    <div className="w-full h-full">
       <VideoPlayer videoId={vimeoId} embedded={true} />
     </div>
   )
